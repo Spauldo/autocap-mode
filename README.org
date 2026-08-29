@@ -1,0 +1,46 @@
+#+TITLE: autocap-mode: Capitalize Text as You Type
+
+autocap-mode is an Emacs minor mode that capitalizes letters as they're being
+inserted into the buffer.  Its motivating use case is working with old code,
+but it should be usable for any situation where you'd like to type a bunch of
+capital letters.
+
+This mode is buffer-local.  You can toggle it on and off with
+=M-x autocap-mode=.
+
+By default, autocap-mode will not capitalize comments or strings.  You can
+modify this using the =customize= interface or by altering the value of
+=autocap-mode-excluded-faces=.  Any type of text that has a =font-lock= face
+can be added to this list.
+
+autocap-mode does nothing unless =font-lock-mode= is enabled in the current
+buffer.
+
+* Installation
+
+Copy the file =autocap-mode.el= to somewhere in your =load-path= and add the
+following to your init file:
+
+#+BEGIN_SRC emacs-lisp
+  (require 'autocap-mode)
+#+END_SRC
+
+If you regularly use =autocap-mode= in a particular major mode, you can run it
+automatically by adding it to the major mode's hook.  Here's an example for
+fixed-form Fortran:
+
+#+BEGIN_SRC emacs-lisp
+  (add-hook 'fortran-mode-hook #'autocap-mode)
+#+END_SRC
+
+* FAQ
+
+** Why not use CAPS-LOCK?
+
+CAPS-LOCK capitalizes letters during /input/, whereas autocap-mode capitalizes
+letters during /insertion/.  The largest consequence of this is that CAPS-LOCK
+will interfere with Emacs keybindings.
+
+There's probably a clever way of remapping CAPS-LOCK to some key that doesn't
+exist on your keyboard and then binding that in Emacs, but that's left as an
+exercise for the reader.
